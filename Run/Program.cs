@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Security.Cryptography;
 
 namespace Command_Line
 {
@@ -10,13 +11,16 @@ namespace Command_Line
         {
             var validcommands = new HashSet<string>
             {
-                "list", "info", "mkdir", "md", "print", "write", "add", "remove", "exit", "create", "cd", "help", "clear"
+                "list", "info", "mkdir", "md", "print", "write", "append", "rmdir", "exit", "create", "cd", "help", "clear","del", "erase"
             };
+
+            Console.WriteLine();
+            Directory.SetCurrentDirectory(@"C:\Users\Ahmood");
+            Console.Write(Directory.GetCurrentDirectory() + "> ");
 
             while (true)
             {
-                Console.WriteLine();
-                Console.Write($"{Directory.GetCurrentDirectory()}> ");
+                
                 var input = Console.ReadLine().Trim();
 
                 if (string.IsNullOrEmpty(input))
@@ -24,29 +28,29 @@ namespace Command_Line
 
                 int WhiteSpaceIndex = input.IndexOf(' ');
 
-                string command, Path;
+                string path, command;
 
                 if (WhiteSpaceIndex == -1)
                 {
                     command = input.ToLower();
-                    Path = ""; // or null, depending on how you want to handle it
+                    path = ""; // or null, depending on how you want to handle it
                 }
                 else
                 {
                     command = input.Substring(0, WhiteSpaceIndex).ToLower();
-                    Path = input.Substring(WhiteSpaceIndex + 1).Trim();
+                    path = input.Substring(WhiteSpaceIndex + 1).Trim();
                 }
-                if (!validcommands.Contains(command))
-                {
-                    Console.WriteLine("Invalid command. Type 'help' if you need a list of available commands.");
-                    continue;
-                }
+                //if (!validcommands.Contains(command))
+                //{
+                //    Console.WriteLine("Invalid command. Type 'help' if you need a list of available commands.");
+                //    continue;
+                //}
 
                 if (command == "cd")
                 {
-                    if (Directory.Exists(Path))
+                    if (Directory.Exists(path))
                     {
-                        Directory.SetCurrentDirectory(Path);
+                        Directory.SetCurrentDirectory(path);
                     }
                     else
                     {
@@ -55,9 +59,9 @@ namespace Command_Line
                 }
                 else if (command == "list")
                 {
-                    foreach (var Dir in Directory.GetDirectories(Path))
+                    foreach (var Dir in Directory.GetDirectories(path))
                         Console.WriteLine($"[Dir]: {Dir}");
-                    foreach (var File in Directory.GetFiles(Path))
+                    foreach (var File in Directory.GetFiles(path))
                         Console.WriteLine($"[File]: {File}");
 
                 }
@@ -72,16 +76,16 @@ namespace Command_Line
                 }
                 else if (command == "info")
                 {
-                    if (Directory.Exists(Path))
+                    if (Directory.Exists(path))
                     {
-                        var DirInfo = new DirectoryInfo(Path);
+                        var DirInfo = new DirectoryInfo(path);
                         Console.WriteLine("Type: Directory");
                         Console.WriteLine($"Creation Time: {DirInfo.CreationTime}");
                         Console.WriteLine($"Last Modified At: {DirInfo.LastWriteTimeUtc}");
                     }
-                    else if (File.Exists(Path))
+                    else if (File.Exists(path))
                     {
-                        var FileInfo = new FileInfo(Path);
+                        var FileInfo = new FileInfo(path);
                         Console.WriteLine("Type: File");
                         Console.WriteLine($"Creation Time: {FileInfo.CreationTime}");
                         Console.WriteLine($"Last Modified At: {FileInfo.LastWriteTimeUtc}");
@@ -90,72 +94,96 @@ namespace Command_Line
                 }
                 else if (command == "mkdir" || command == "md")
                 {
-                    Directory.CreateDirectory(Path);
-                    Console.WriteLine($"Directory created: {Path}");
+                    Directory.CreateDirectory(path);
+                    Console.WriteLine($"Directory created: {path}");
                 }
                 else if (command == "print")
                 {
-                    if (File.Exists(Path))
+                    if (File.Exists(path))
                     {
-                        var content = File.ReadAllText(Path);
+                        var content = File.ReadAllText(path);
                         Console.WriteLine(content);
                     }
                 }
                 else if (command == "write")
                 {
-                    if (File.Exists(Path))
+                    if (File.Exists(path))
                     {
                         Console.WriteLine("Enter Text: ");
                         var content = Console.ReadLine();
-                        File.WriteAllText(Path, content);
-                        Console.WriteLine($"File Modified: {Path}");
+                        File.WriteAllText(path, content);
+                        Console.WriteLine($"File Modified: {path}");
                     }
                 }
                 else if (command == "clear")
                 {
                     Console.Clear();
                 }
-                else if (command == "add")
+                else if (command == "append")
                 {
-                    if (File.Exists(Path))
+                    if (File.Exists(path))
                     {
                         Console.WriteLine("Enter Text: ");
                         var content = Console.ReadLine();
-                        File.AppendAllText(Path, content);
-                        Console.WriteLine($"File Modified: {Path}");
+                        File.AppendAllText(path, content);
+                        Console.WriteLine($"File Modified: {path}");
                     }
                 }
                 else if (command == "create")
                 {
-                    if (!File.Exists(Path))
+                    if (!File.Exists(path))
                     {
-                        File.Create(Path).Close(); // Create and close to release the file handle
-                        Console.WriteLine($"File created: {Path}");
+                        File.Create(path).Close(); // Create and close to release the file handle
+                        Console.WriteLine($"File created: {path}");
                     }
                     else
                     {
                         Console.WriteLine("File already exists.");
                     }
                 }
-                else if (command == "remove")
+                else if (command == "rmdir")
                 {
-                    // if (Directory.Exists(Path))
-                    // Directory.Delete(Path, true); // delete dir and its subfolders
-                    if (Directory.Exists(Path))
+                    // if (Directory.Exists(path))
+                    // Directory.Delete(path, true); // delete dir and its subfolders
+                    if (Directory.Exists(path))
                     {
-                        Directory.Delete(Path); // delete an empty directory
-                        Console.WriteLine($"Directory removed: {Path}");
+                        Directory.Delete(path); // delete an empty directory
+                        Console.WriteLine($"Directory removed: {path}");
                     }
-                    else if (File.Exists(Path))
+                    else
                     {
-                        File.Delete(Path);
-                        Console.WriteLine($"File removed: {Path}");
+                        Console.WriteLine("Directory was not found");
                     }
+                }
+                else if (command == "del" || command == "erase")
+                {
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                        Console.WriteLine($"File removed: {path}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("File was not found");
+                    }
+                }
+                else if (command == "sloc")
+                {
+                    Console.Write("Enter Directory Location: ");
+                    var temp = Console.ReadLine();
+                    if (Directory.Exists(temp))
+                    {
+                        path = temp;
+                    }
+                    Directory.SetCurrentDirectory(path);
                 }
                 else if (command == "exit")
                 {
                     break;
                 }
+
+                Console.WriteLine();
+                Console.Write(Directory.GetCurrentDirectory() + "> ");
             }
 
         }
