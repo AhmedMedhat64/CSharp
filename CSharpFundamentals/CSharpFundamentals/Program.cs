@@ -755,8 +755,8 @@ namespace CSharpFundamentals
             Console.WriteLine(w5); // Sunday, Monday, Thesday, Friday  
             */
 
-            CSharpFundamentals.CommandLine.App.Run(args);
-            CSharpFundamentals.RandomStringNumberDictionary.App.Run(args);
+            // CSharpFundamentals.CommandLine.App.Run(args);
+            // CSharpFundamentals.RandomStringNumberDictionary.App.Run(args);
             CSharpFundamentals.RandomStringNumberSwitch.App.Run(args);
         }
 
