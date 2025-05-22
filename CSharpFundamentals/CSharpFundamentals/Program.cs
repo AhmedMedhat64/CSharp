@@ -8,6 +8,7 @@ namespace CSharpFundamentals
         static void Main(string[] args)
         {
             Console.Title = "CSharp Fundamentals"; // Title 
+            CSharpFundamentals.MathExpressionEvaluator.App.Run(args);
             /* lec_1 & 2
             Console.ForegroundColor = ConsoleColor.Blue; // Colors the all coming text 
             Console.Write("Hello, World!\n");
@@ -755,9 +756,7 @@ namespace CSharpFundamentals
             Console.WriteLine(w5); // Sunday, Monday, Thesday, Friday  
             */
 
-            CSharpFundamentals.CommandLine.App.Run(args);
-            CSharpFundamentals.RandomStringNumberDictionary.App.Run(args);
-            CSharpFundamentals.RandomStringNumberSwitch.App.Run(args);
+
         }
 
 

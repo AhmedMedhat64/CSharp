@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Ahmed\\C#\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
+      "projectUniqueName": "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
       "projectName": "CSharpFundamentals",
-      "projectPath": "D:\\Ahmed\\C#\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
+      "projectPath": "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
       "packagesPath": "C:\\Users\\Ahmood\\.nuget\\packages\\",
-      "outputPath": "D:\\Ahmed\\C#\\CSharpFundamentals\\CSharpFundamentals\\obj\\",
+      "outputPath": "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
