@@ -754,6 +754,9 @@ namespace CSharpFundamentals
             var w5 = w4 ^ WeekDays.Sunday;
             Console.WriteLine(w5); // Sunday, Monday, Thesday, Friday  
             */
+
+
+
         }
 
 

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\CSharpFundamentals"
   ],
-  "SelectedNode": "\\CSharpFundamentals.sln",
+  "SelectedNode": "\\CSharpFundamentals\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
