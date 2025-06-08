@@ -7,8 +7,8 @@ namespace CSharpFundamentals
 
         static void Main(string[] args)
         {
-            Console.Title = "CSharp Fundamentals"; // Title 
             /* lec_1 & 2
+            Console.Title = "CSharp Fundamentals"; // Title 
             Console.ForegroundColor = ConsoleColor.Blue; // Colors the all coming text 
             Console.Write("Hello, World!\n");
             Console.BackgroundColor = ConsoleColor.Magenta; // background color for all the program
@@ -754,7 +754,6 @@ namespace CSharpFundamentals
             var w5 = w4 ^ WeekDays.Sunday;
             Console.WriteLine(w5); // Sunday, Monday, Thesday, Friday  
             */
-
 
 
         }
