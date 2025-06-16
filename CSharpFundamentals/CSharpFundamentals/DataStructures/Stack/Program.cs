@@ -77,7 +77,7 @@ namespace CSharpFundamentals.DataStructures.Stack
 
         public string Execute()
         {
-            _originalText += $"{_textToAppend} ";
+            _originalText += _textToAppend;
             Console.WriteLine(_originalText);
             return _originalText;
         }
