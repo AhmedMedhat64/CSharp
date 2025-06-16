@@ -1,12 +1,57 @@
 ﻿using System.Text;
-using CSharpFundamentals.CommandLine;
+using CSharpFundamentals.Apps.CommandLine;
 namespace CSharpFundamentals
 {
     internal class Program
     {
 
+        public static string Uncensor(string txt, string vowels)
+        {
+            var sb = new StringBuilder();
+            int count = 0;
+            foreach (var item in txt)
+            {
+                if (item == '*')
+                    sb.Append(vowels[count++]);
+                else
+                    sb.Append(item);
+            }
+            return sb.ToString();
+        }
+
+        public static double calcEqu(double X_Value, int a, int b, int c)
+        {
+            double Equ = a * X_Value * X_Value + b * X_Value + c;
+            return Equ;
+        }
+
+        public static double[] FindVertex(int a, int b, int c)
+        {
+            double[] Vertex = new double[2];
+            double Y_Coordinate, X_Coordinate;
+            if (a == 0)
+            {
+                X_Coordinate = 0;
+                Y_Coordinate = calcEqu(X_Coordinate, a, b, c);
+            }
+            else
+            {
+                X_Coordinate = -1.0 * b / (2 * a);
+                if (X_Coordinate == -0.0)
+                {
+                    X_Coordinate = 0.0;
+                }
+                Y_Coordinate = calcEqu(X_Coordinate, a, b, c);
+            }
+
+            Vertex[0] = X_Coordinate;
+            Vertex[1] = Y_Coordinate;
+            return Vertex;
+        }
         static void Main(string[] args)
         {
+
+            CSharpFundamentals.DataStructures.Stack.Program.Run();
             /* lec_1 & 2
             Console.Title = "CSharp Fundamentals"; // Title 
             Console.ForegroundColor = ConsoleColor.Blue; // Colors the all coming text 
