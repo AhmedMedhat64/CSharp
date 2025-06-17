@@ -65,26 +65,12 @@ namespace CSharpFundamentals
             }
             return new string(array);
         }
-        private static readonly string EncryptingAndDecryptingStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        private static Dictionary<int, char> EncryptionTable = new();
-
-        private static void SetEncryptionTable()
-        {
-            for (int i = 0; i < 62; i++)
-            {
-                EncryptionTable.Add(i, EncryptingAndDecryptingStr[i]);
-            }
-            foreach (var item in EncryptionTable)
-            {
-                Console.WriteLine("{ " + item.Key + " , " + "'" + item.Value + "'" + " },");
-            }
-        }
+  
         static void Main(string[] args)
         {
 
-            SetEncryptionTable();
 
-            // App.Run(args);
+            App.Run(args);
             /* lec_1 & 2
             Console.Title = "CSharp Fundamentals"; // Title 
             Console.ForegroundColor = ConsoleColor.Blue; // Colors the all coming text 

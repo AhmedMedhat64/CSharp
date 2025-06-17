@@ -102,7 +102,7 @@ namespace CSharpFundamentals.Apps.PasswordManager
         {
             var sb = new StringBuilder();
             foreach (var entry in _passwordEntries)
-                sb.AppendLine($"{entry.Key}={EncryptionUtility.Encrypt(entry.Value)}");
+                sb.AppendLine($"{entry.Key}={EncryptionAndDecryption.Encrypt(entry.Value)}");
             File.WriteAllText("password.txt", sb.ToString());
         }
 
@@ -118,7 +118,7 @@ namespace CSharpFundamentals.Apps.PasswordManager
                         var equalIndex = line.IndexOf('=');
                         var appName = line.Substring(0, equalIndex);
                         var password = line.Substring(equalIndex + 1);
-                        _passwordEntries.Add(appName, EncryptionUtility.Decrypt(password));
+                        _passwordEntries.Add(appName, EncryptionAndDecryption.Decrypt(password));
                     }
                 }
             }

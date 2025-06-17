@@ -1,6 +1,7 @@
 ﻿using CSharpFundamentals.Apps.RandomStringNumberDictionary;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,8 @@ namespace CSharpFundamentals.Apps.PasswordManager
 
     public class EncryptionAndDecryption
     {
-
         // * I want to try to methods in solution
-        // * first: using numbers from 0 to EncryptingAndDecryptingStr.Length - 1
+        // * first:  using numbers from 0 to EncryptingAndDecryptingStr.Length - 1
         // * second: using ASCII Value of letters in EncryptingAndDecryptingStr
 
         // Encrypting matrix 2d matrix
@@ -22,8 +22,7 @@ namespace CSharpFundamentals.Apps.PasswordManager
         // what to do if length is odd in decryption
 
         // lets start 
-        private static readonly string EncryptingAndDecryptingStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        private static Dictionary<int, char> EncryptionTable = new() {
+        private static Dictionary<int, char> EncryptingTable = new() {
             { 0 , 'A' },
             { 1 , 'B' },
             { 2 , 'C' },
@@ -87,8 +86,72 @@ namespace CSharpFundamentals.Apps.PasswordManager
             { 60 , '8' },
             { 61 , '9' }
         };
+        private static Dictionary<char, int> DecryptingTable = new() {
+            { 'A' , 0 },
+            { 'B' , 1 },
+            { 'C' , 2 },
+            { 'D' , 3 },
+            { 'E' , 4 },
+            { 'F' , 5 },
+            { 'G' , 6 },
+            { 'H' , 7 },
+            { 'I' , 8 },
+            { 'J' , 9 },
+            { 'K' , 10 },
+            { 'L' , 11 },
+            { 'M' , 12 },
+            { 'N' , 13 },
+            { 'O' , 14 },
+            { 'P' , 15 },
+            { 'Q' , 16 },
+            { 'R' , 17 },
+            { 'S' , 18 },
+            { 'T' , 19 },
+            { 'U' , 20 },
+            { 'V' , 21 },
+            { 'W' , 22 },
+            { 'X' , 23 },
+            { 'Y' , 24 },
+            { 'Z' , 25 },
+            { 'a' , 26 },
+            { 'b' , 27 },
+            { 'c' , 28 },
+            { 'd' , 29 },
+            { 'e' , 30 },
+            { 'f' , 31 },
+            { 'g' , 32 },
+            { 'h' , 33 },
+            { 'i' , 34 },
+            { 'j' , 35 },
+            { 'k' , 36 },
+            { 'l' , 37 },
+            { 'm' , 38 },
+            { 'n' , 39 },
+            { 'o' , 40 },
+            { 'p' , 41 },
+            { 'q' , 42 },
+            { 'r' , 43 },
+            { 's' , 44 },
+            { 't' , 45 },
+            { 'u' , 46 },
+            { 'v' , 47 },
+            { 'w' , 48 },
+            { 'x' , 49 },
+            { 'y' , 50 },
+            { 'z' , 51 },
+            { '0' , 52 },
+            { '1' , 53 },
+            { '2' , 54 },
+            { '3' , 55 },
+            { '4' , 56 },
+            { '5' , 57 },
+            { '6' , 58 },
+            { '7' , 59 },
+            { '8' , 60 },
+            { '9' , 61 }
+        };
 
-        static int[]  modArray = {
+        static int[] modArray = {
             1, 3, 5, 7, 11, 13, 17, 19,
             21, 23, 25, 27, 31, 33, 35, 37,
             39, 41, 43, 45, 47, 49, 53, 55,
@@ -109,13 +172,14 @@ namespace CSharpFundamentals.Apps.PasswordManager
         private static int[,] DecryptingMatrix = new int[2, 2];
         private static int DecryptingMatrixCoefficient = 1;
         private static int EnryptingMatrixDet = 1;
+        private static string IncAndDecCharacter = "A";
 
-        private static void IntializingEncryptingMatrix()
+        private static void CalcEncryptingMatrix()
         {
             for (int i = 0; i < arrayElements.Length; i++)
             {
                 var rnd = new Random();
-                int value = rnd.Next(1, 100);
+                int value = rnd.Next(1, 200) % 62;
                 arrayElements[i] = value;
             }
 
@@ -128,10 +192,10 @@ namespace CSharpFundamentals.Apps.PasswordManager
                 }
             }
 
-            EnryptingMatrixDet = (EncryptingMatrix[0, 0] * EncryptingMatrix[1, 1]) - (EncryptingMatrix[0, 1] * EncryptingMatrix[2, 2]);
+            EnryptingMatrixDet = (EncryptingMatrix[0, 0] * EncryptingMatrix[1, 1]) - (EncryptingMatrix[0, 1] * EncryptingMatrix[1, 0]);
             EnryptingMatrixDet = EnryptingMatrixDet % 62;
             if (EnryptingMatrixDet % 2 == 0 || EnryptingMatrixDet % 31 == 0 || EnryptingMatrixDet == 0)
-                IntializingEncryptingMatrix();
+                CalcEncryptingMatrix();
             else
             {
                 for (int i = 0; i < modArray.Length; i++)
@@ -162,27 +226,74 @@ namespace CSharpFundamentals.Apps.PasswordManager
 
         public static string Encrypt(string password)
         {
-            IntializingEncryptingMatrix();
-            int[,] arr = new int[2, 1];
-            var EncryptedPassword = new StringBuilder();
+            CalcEncryptingMatrix();
             if (password.Length % 2 == 1)
             {
-                password += 'A';
+                password += IncAndDecCharacter;
                 IsOdd = true;
             }
+            var EncryptedPassword = new StringBuilder();
+            int iterations = password.Length / 2;
 
-
+            int count = 0;
+            int FirstEle = 0; 
+            int LastEle  = 0;
+            int EleSum = 0;
+            for (int i = 0; i < iterations; i++)
+            {
+                int[,] arr = new int[2, 1];
+                arr[0, 0] = DecryptingTable[password[count]];
+                arr[1, 0] = DecryptingTable[password[count++]];
+                for (int j = 0; j < 2; j++)
+                {
+                    for (int k = 0; k < 2; k++)
+                    {
+                        EleSum += (arr[FirstEle++, LastEle] * EncryptingMatrix[k, j]);
+                    }
+                    EleSum = EleSum % 62;
+                    EncryptedPassword.Append(EncryptingTable[EleSum]);
+                    FirstEle = EleSum = 0;
+                }
+            }
+            IncAndDecCharacter = EncryptedPassword.Length.ToString();
+            return EncryptedPassword.ToString().Substring(0, EncryptedPassword.Length - 1);
         }
 
         public static string Decrypt(string password)
         {
             CalcDectyptingMatrix();
-            // last part of the method
-            var ZIndex = password.IndexOf('A');
+            var DecryptedPassword = new StringBuilder();
             if (IsOdd) // password was odd but not is even so we must make it odd once again
             {
-                password = password.Substring(0, ZIndex);
+                password += IncAndDecCharacter;
             }
+
+            int iterations = password.Length / 2;
+
+            int count = 0;
+            int FirstEle = 0;
+            int LastEle = 0;
+            int EleSum = 0;
+            for (int i = 0; i < iterations; i++)
+            {
+                int[,] arr = new int[2, 1];
+                arr[0, 0] = DecryptingTable[password[count]];
+                arr[1, 0] = DecryptingTable[password[count++]];
+                for (int j = 0; j < 2; j++)
+                {
+                    for (int k = 0; k < 2; k++)
+                    {
+                        EleSum += (arr[FirstEle++, LastEle] * DecryptingMatrix[k, j]);
+                    }
+                    EleSum = EleSum % 62;
+                    DecryptedPassword.Append(EncryptingTable[EleSum]);
+                    FirstEle = EleSum = 0;
+                }
+            }
+
+            // last part of the method
+            IncAndDecCharacter = "A";
+            return DecryptedPassword.ToString().Substring(0, DecryptedPassword.Length - 1);
         }
     }
 
