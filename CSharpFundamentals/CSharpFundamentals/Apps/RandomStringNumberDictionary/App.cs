@@ -8,7 +8,7 @@ namespace CSharpFundamentals.Apps.RandomStringNumberDictionary
 {
     public class App
     {
-        static void GeneratedRandomNumber(int Min, int Max)
+        public static void GeneratedRandomNumber(int Min, int Max)
         {
             var rnd = new Random();
             int value = rnd.Next(Min, Max);
