@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using CSharpFundamentals.Apps.CommandLine;
+using CSharpFundamentals.Apps.PasswordManager;
 namespace CSharpFundamentals
 {
     internal class Program
@@ -48,10 +48,27 @@ namespace CSharpFundamentals
             Vertex[1] = Y_Coordinate;
             return Vertex;
         }
+
+        public static string Shuffle(string password)
+        {
+            password = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789({<]!#$%&*+-/=?@\|_[>})";
+            char[] array = password.ToCharArray();
+            Random rng = new Random();
+            int n = array.Length;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                var value = array[k];
+                array[k] = array[n];
+                array[n] = value;
+            }
+            return new string(array);
+        }
         static void Main(string[] args)
         {
 
-            CSharpFundamentals.DataStructures.Stack.Program.Run();
+            App.Run(args);
             /* lec_1 & 2
             Console.Title = "CSharp Fundamentals"; // Title 
             Console.ForegroundColor = ConsoleColor.Blue; // Colors the all coming text 
