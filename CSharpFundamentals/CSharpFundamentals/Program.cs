@@ -68,8 +68,6 @@ namespace CSharpFundamentals
   
         static void Main(string[] args)
         {
-
-
             App.Run(args);
             /* lec_1 & 2
             Console.Title = "CSharp Fundamentals"; // Title 
@@ -818,8 +816,6 @@ namespace CSharpFundamentals
             var w5 = w4 ^ WeekDays.Sunday;
             Console.WriteLine(w5); // Sunday, Monday, Thesday, Friday  
             */
-
-
         }
 
 

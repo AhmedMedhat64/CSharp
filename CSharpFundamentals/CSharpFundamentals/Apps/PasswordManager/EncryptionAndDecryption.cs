@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 namespace CSharpFundamentals.Apps.PasswordManager
-{ 
+{
 
     public class EncryptionAndDecryption
     {
@@ -173,7 +173,7 @@ namespace CSharpFundamentals.Apps.PasswordManager
         private static int DecryptingMatrixCoefficient = 1;
         private static int EnryptingMatrixDet = 1;
         private static string IncAndDecCharacter = "A";
-
+        
         private static void CalcEncryptingMatrix()
         {
             for (int i = 0; i < arrayElements.Length; i++)
@@ -188,7 +188,7 @@ namespace CSharpFundamentals.Apps.PasswordManager
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    EncryptingMatrix[i,j] = arrayElements[count++];
+                    EncryptingMatrix[i, j] = arrayElements[count++];
                 }
             }
 
@@ -208,18 +208,18 @@ namespace CSharpFundamentals.Apps.PasswordManager
                 }
             }
         }
-
         private static void CalcDectyptingMatrix()
         {
-            int count = 3;
             for (int i = 1; i >= 0; i--)
             {
                 for (int j = 1; j >= 0; j--)
                 {
-                    if (count == 2 || count == 1)
-                        DecryptingMatrix[i, j] = -arrayElements[count--] * DecryptingMatrixCoefficient;
-                    else 
-                        DecryptingMatrix[i, j] =  arrayElements[count--] * DecryptingMatrixCoefficient; 
+                    if (i == 0 && j == 0)
+                        DecryptingMatrix[i, j] = EncryptingMatrix[i + 1, j + 1] * DecryptingMatrixCoefficient;
+                    else if (i == 1 && j == 1)
+                        DecryptingMatrix[i, j] = EncryptingMatrix[i - 1, j - 1] * DecryptingMatrixCoefficient;
+                    else
+                        DecryptingMatrix[i, j] = -EncryptingMatrix[i,j] * DecryptingMatrixCoefficient;
                 }
             }
         }
@@ -236,8 +236,8 @@ namespace CSharpFundamentals.Apps.PasswordManager
             int iterations = password.Length / 2;
 
             int count = 0;
-            int FirstEle = 0; 
-            int LastEle  = 0;
+            int FirstEle = 0;
+            int LastEle = 0;
             int EleSum = 0;
             for (int i = 0; i < iterations; i++)
             {
@@ -258,7 +258,6 @@ namespace CSharpFundamentals.Apps.PasswordManager
             IncAndDecCharacter = EncryptedPassword.Length.ToString();
             return EncryptedPassword.ToString().Substring(0, EncryptedPassword.Length - 1);
         }
-
         public static string Decrypt(string password)
         {
             CalcDectyptingMatrix();
@@ -291,10 +290,8 @@ namespace CSharpFundamentals.Apps.PasswordManager
                 }
             }
 
-            // last part of the method
-            IncAndDecCharacter = "A";
             return DecryptedPassword.ToString().Substring(0, DecryptedPassword.Length - 1);
         }
     }
-
 }
+
