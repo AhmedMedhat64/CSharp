@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj": {}
+    "D:\\WORK\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj": {}
   },
   "projects": {
-    "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj": {
+    "D:\\WORK\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
+        "projectUniqueName": "D:\\WORK\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
         "projectName": "CSharpFundamentals",
-        "projectPath": "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
-        "packagesPath": "C:\\Users\\Ahmood\\.nuget\\packages\\",
-        "outputPath": "D:\\Ahmed\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\obj\\",
+        "projectPath": "D:\\WORK\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\CSharpFundamentals.csproj",
+        "packagesPath": "C:\\Users\\ahmed\\.nuget\\packages\\",
+        "outputPath": "D:\\WORK\\C#\\CSharp\\CSharpFundamentals\\CSharpFundamentals\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Ahmood\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\ahmed\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,13 +34,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -65,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
